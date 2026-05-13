@@ -1,0 +1,60 @@
+/**
+ * Доп. стили для vanilla-combobox под классы react-select (Greenhouse job board).
+ * Основное в entry-rL0h39AS.css; здесь позиционирование меню и подсветка опций.
+ */
+.select-shell[data-aclu-rs-hydrated] {
+  position: relative;
+}
+
+.select-shell[data-aclu-rs-hydrated] .select__value-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.select-shell[data-aclu-rs-hydrated] .aclu-rs-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 30;
+  margin-top: -1px;
+}
+
+.select-shell[data-aclu-rs-hydrated] .select__menu-list {
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.select-shell[data-aclu-rs-hydrated] .select__option--is-focused {
+  background-color: var(--custom-list-hover-color, #f4f4f4);
+  cursor: pointer;
+}
+
+.select-shell[data-aclu-rs-hydrated] .select__option:active {
+  background-color: var(--custom-dropdown-selection-color, #e8e8e8);
+}
+
+.select-shell[data-aclu-rs-hydrated] .select__single-value {
+  margin: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 0 1 auto;
+}
+
+.select-shell[data-aclu-rs-hydrated] .select__input-container {
+  flex: 1 1 auto;
+  min-width: 2px;
+}
+
+.select-shell[data-aclu-rs-hydrated] .select__single-value[hidden] {
+  display: none !important;
+}
+
+.select-shell[data-aclu-rs-hydrated] .select__placeholder[hidden] {
+  display: none !important;
+}

@@ -1,0 +1,9 @@
+{
+  "name": "jobs-board-greenhouse-mock",
+  "private": true,
+  "scripts": {
+    "dev": "sh -c 'python3 -m http.server ${PORT:-8765} --directory greenhouse'",
+    "fetch:aclu-fields": "node greenhouse/8520829002/scripts/fetch-aclu-form-fields.mjs",
+    "fetch:aclu-cdn-assets": "node greenhouse/8520829002/scripts/fetch-aclu-cdn-assets.mjs"
+  }
+}

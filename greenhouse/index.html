@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Greenhouse mocks</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 42rem;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        line-height: 1.5;
+      }
+      h1 {
+        font-size: 1.25rem;
+      }
+      ul {
+        padding-left: 1.2rem;
+      }
+      a {
+        word-break: break-all;
+      }
+      code {
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Локальные моки Greenhouse</h1>
+    <p>После <code>npm run dev</code> откройте страницу (порт по умолчанию 8765, см. <code>package.json</code>):</p>
+    <ul>
+      <li>
+        <strong>ACLU — статический снимок</strong> (без React). Combobox оживляется <code>aclu-hydrate-selects.js</code>; данные —
+        <code>aclu-form-fields.json</code> и <code>countries.json</code>. Обновить поля после смены формы на сайте:
+        <code>npm run fetch:aclu-fields</code>. Открывать через HTTP, не <code>file://</code>.
+        —
+        <a href="./8520829002/job-boards.greenhouse.io/aclu/jobs/8520829002.html">8520829002/…/8520829002.html</a>
+      </li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,493 @@
+{
+  "questions": [
+    {
+      "required": true,
+      "label": "First Name",
+      "description": null,
+      "fields": [
+        {
+          "name": "first_name",
+          "type": "input_text"
+        }
+      ]
+    },
+    {
+      "required": true,
+      "label": "Last Name",
+      "description": null,
+      "fields": [
+        {
+          "name": "last_name",
+          "type": "input_text"
+        }
+      ]
+    },
+    {
+      "required": false,
+      "label": "Preferred First Name",
+      "description": null,
+      "fields": [
+        {
+          "name": "preferred_name",
+          "type": "input_text"
+        }
+      ]
+    },
+    {
+      "required": true,
+      "label": "Email",
+      "description": null,
+      "fields": [
+        {
+          "name": "email",
+          "type": "input_text"
+        }
+      ]
+    },
+    {
+      "required": true,
+      "label": "Phone",
+      "description": null,
+      "fields": [
+        {
+          "name": "phone",
+          "type": "input_text"
+        }
+      ]
+    },
+    {
+      "required": true,
+      "label": "Resume/CV",
+      "description": null,
+      "fields": [
+        {
+          "name": "resume",
+          "type": "input_file",
+          "allowed_filetypes": [
+            "pdf",
+            "doc",
+            "docx",
+            "txt",
+            "rtf"
+          ]
+        },
+        {
+          "name": "resume_text",
+          "type": "textarea"
+        }
+      ]
+    },
+    {
+      "required": true,
+      "label": "Cover Letter",
+      "description": null,
+      "fields": [
+        {
+          "name": "cover_letter",
+          "type": "input_file",
+          "allowed_filetypes": [
+            "pdf",
+            "doc",
+            "docx",
+            "txt",
+            "rtf"
+          ]
+        },
+        {
+          "name": "cover_letter_text",
+          "type": "textarea"
+        }
+      ]
+    },
+    {
+      "required": false,
+      "label": "Pronouns (optional)",
+      "description": "<p><em>At the ACLU, we deeply value diversity, inclusion, and belonging. We actively work to ensure that we are addressing everyone appropriately and that we&rsquo;re acknowledging their identity as they would like. Examples of common pronouns are 'she/her/hers,' 'he/him/his,' and 'they/them/theirs.' This is optional, but if you&rsquo;re comfortable, please share your pronouns.</em></p>",
+      "fields": [
+        {
+          "name": "question_36273544002",
+          "type": "input_text"
+        }
+      ],
+      "multi_select_style": "checkbox"
+    },
+    {
+      "required": false,
+      "label": "First Name/Common Use First Name (optional)",
+      "description": "<p><em>A common use name (sometimes known as a chosen name, nickname, or a name-in-use) is the use of a name, usually a first name, that is different from a person's legal name. Common use names can be used in organizational communications and informational materials such as email correspondence, staff directories, business cards, software and similar systems which do not require the use of a legal name.&nbsp; Legal names will continue to be used where required by law or organizational policy, including but not limited to, formal organizational and employment correspondence in addition to immigration, payroll, tax, benefits and insurance documents.</em></p>",
+      "fields": [
+        {
+          "name": "question_36273545002",
+          "type": "input_text"
+        }
+      ],
+      "multi_select_style": "checkbox"
+    },
+    {
+      "required": false,
+      "label": "The following demographic questions are optional. They are used to help us better understand our applicant pool and to continually improve our outreach and recruitment efforts.\n\nIndividuals seeking employment at the ACLU are considered without regards to race, color, religion, national origin, age, sex, marital status, ancestry, physical or mental disability, veteran status, gender identity, or sexual orientation. ",
+      "description": null,
+      "fields": [
+        {
+          "name": "question_36273546002",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "value": 240088037002,
+              "label": "I understand"
+            }
+          ]
+        }
+      ],
+      "multi_select_style": "checkbox"
+    },
+    {
+      "required": false,
+      "label": "Race and/or Ethnicity:",
+      "description": "<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+      "fields": [
+        {
+          "name": "question_36273547002",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "value": 240088038002,
+              "label": "African American or Black"
+            },
+            {
+              "value": 240088039002,
+              "label": "American Indian, Native American, or Alaska Native"
+            },
+            {
+              "value": 240088040002,
+              "label": "Arab or Middle Eastern"
+            },
+            {
+              "value": 240088041002,
+              "label": "Asian including South Asian"
+            },
+            {
+              "value": 240088042002,
+              "label": "Hispanic or Latina/o/x"
+            },
+            {
+              "value": 240088043002,
+              "label": "Native Hawaiian or Pacific Islander"
+            },
+            {
+              "value": 240088044002,
+              "label": "Two or More Races/Ethnicities"
+            },
+            {
+              "value": 240088045002,
+              "label": "White or Caucasian"
+            },
+            {
+              "value": 240088046002,
+              "label": "I prefer not to answer"
+            },
+            {
+              "value": 240088047002,
+              "label": "A race or ethnicity not listed"
+            }
+          ]
+        }
+      ],
+      "multi_select_style": "checkbox"
+    },
+    {
+      "required": false,
+      "label": "If you chose 'A race or ethnic group not listed,' please let us know how you self-identify:",
+      "description": null,
+      "fields": [
+        {
+          "name": "question_36273548002",
+          "type": "input_text"
+        }
+      ],
+      "multi_select_style": null
+    },
+    {
+      "required": false,
+      "label": "Gender:\n\n",
+      "description": null,
+      "fields": [
+        {
+          "name": "question_36273549002",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "value": 240088048002,
+              "label": "Cisgender Man"
+            },
+            {
+              "value": 240088049002,
+              "label": "Cisgender Woman"
+            },
+            {
+              "value": 240088050002,
+              "label": "Non-Binary"
+            },
+            {
+              "value": 240088051002,
+              "label": "Transgender Man"
+            },
+            {
+              "value": 240088052002,
+              "label": "Transgender Woman"
+            },
+            {
+              "value": 240088053002,
+              "label": "I prefer not to answer"
+            },
+            {
+              "value": 240088054002,
+              "label": "A gender not listed"
+            }
+          ]
+        }
+      ],
+      "multi_select_style": "checkbox"
+    },
+    {
+      "required": false,
+      "label": "If you chose \"A gender not listed,\" please let us know how you self-identify:",
+      "description": null,
+      "fields": [
+        {
+          "name": "question_36273550002",
+          "type": "input_text"
+        }
+      ],
+      "multi_select_style": null
+    },
+    {
+      "required": false,
+      "label": "Disability Status:",
+      "description": "<p><strong>Why are you being asked to complete this form?</strong></p>\n<p>We are committed to equal opportunity to qualified people with disabilities. To help us measure how well we are doing, we are asking you to tell us if you have a disability or if you ever had a disability. Completing this form is voluntary, but we hope that you will choose to fill it out. If you are applying for a job, any answer you give will be kept private and will not be used against you in any way.</p>\n<p>If you already work for us, your answer will not be used against you in any way. Because a person may become disabled at any time, we are required to ask all of our employees to update their information every five years. You may voluntarily self-identify as having a disability on this form without fear of any punishment because you did not identify as having a disability earlier.</p>\n<p><strong>How do I know if I have a disability?</strong></p>\n<p>You are considered to have a disability if you have a physical or mental impairment or medical condition that substantially limits a major life activity, or if you have a history or record of such an impairment or medical condition.</p>\n<p>Disabilities include, but are not limited to:</p>\n<ul>\n<li>Blindness</li>\n<li>Deafness</li>\n<li>Cancer</li>\n<li>Diabetes</li>\n<li>Epilepsy</li>\n<li>Autism</li>\n<li>Cerebral palsy</li>\n<li>HIV/AIDS</li>\n<li>Schizophrenia</li>\n<li>Muscular dystrophy</li>\n<li>Bipolar disorder</li>\n<li>Major depression</li>\n<li>Multiple sclerosis (MS)</li>\n<li>Missing limbs or partially missing limbs</li>\n<li>Post-traumatic stress disorder (PTSD)</li>\n<li>Obsessive compulsive disorder</li>\n<li>Impairments requiring the use of a wheelchair</li>\n<li>Intellectual disability (previously called mental retardation)</li>\n</ul>\n<p>&nbsp;</p>",
+      "fields": [
+        {
+          "name": "question_36273551002",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "value": 240088055002,
+              "label": "Person with a Disability (or Previously had a Disability)"
+            },
+            {
+              "value": 240088056002,
+              "label": "Not a Person with a Disability"
+            },
+            {
+              "value": 240088057002,
+              "label": "I prefer not to answer"
+            }
+          ]
+        }
+      ],
+      "multi_select_style": "checkbox"
+    },
+    {
+      "required": false,
+      "label": "Significant Disability Status",
+      "description": "<p>Disability diversity in the workplace includes people with significant disabilities. A &ldquo;significant disability&rdquo; is one that is associated with particularly low employment rates. The federal government has recognized that individuals with certain disabilities, particularly manifest disabilities, face barriers to employment above and beyond the barriers faced by people with the broader range of disabilities. See Questions and Answers: The EEOC's Final Rule on Affirmative Action for People with Disabilities in Federal Employment, (https://www.eeoc.gov/laws/regulations/qanda-ada-disabilities-final-rule.cfm). The ACLU&rsquo;s affirmative action plan for people with disabilities includes an overall goal for people with a broad range of disabilities, and a &ldquo;subgoal&rdquo; for people with significant disabilities.</p>",
+      "fields": [
+        {
+          "name": "question_36273552002",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "value": 240088058002,
+              "label": "Blind"
+            },
+            {
+              "value": 240088059002,
+              "label": "Deaf"
+            },
+            {
+              "value": 240088060002,
+              "label": "Significant Intellectual, Developmental, or Psychiatric Disability"
+            },
+            {
+              "value": 240088061002,
+              "label": "Without the use of one or more limbs"
+            },
+            {
+              "value": 240088062002,
+              "label": "Another Equivalent Limitation"
+            },
+            {
+              "value": 240088063002,
+              "label": "I prefer not to answer"
+            }
+          ]
+        }
+      ],
+      "multi_select_style": "checkbox"
+    },
+    {
+      "required": false,
+      "label": "Veteran Status:",
+      "description": "<p>If you believe you belong to any of the categories of protected veterans listed below, please indicate by making the appropriate selection. As a government contractor subject to Vietnam Era Veterans Readjustment Assistance Act (VEVRAA), we request this information in order to measure the effectiveness of the outreach and positive recruitment efforts we undertake pursuant to VEVRAA. Classification of protected categories is as follows:</p>\n<p>A \"disabled veteran\" is one of the following: a veteran of the U.S. military, ground, naval or air service who is entitled to compensation (or who but for the receipt of military retired pay would be entitled to compensation) under laws administered by the Secretary of Veterans Affairs; or a person who was discharged or released from active duty because of a service-connected disability.</p>\n<p>A \"recently separated veteran\" means any veteran during the three-year period beginning on the date of such veteran's discharge or release from active duty in the U.S. military, ground, naval, or air service.</p>\n<p>An \"active duty wartime or campaign badge veteran\" means a veteran who served on active duty in the U.S. military, ground, naval or air service during a war, or in a campaign or expedition for which a campaign badge has been authorized under the laws administered by the Department of Defense.</p>\n<p>An \"Armed forces service medal veteran\" means a veteran who, while serving on active duty in the U.S. military, ground, naval or air service, participated in a United States military operation for which an Armed Forces service medal was awarded pursuant to Executive Order 12985.</p>",
+      "fields": [
+        {
+          "name": "question_36273553002",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "value": 240088064002,
+              "label": "I am not a protected veteran"
+            },
+            {
+              "value": 240088065002,
+              "label": "I identify as one or more of the classifications of a protected veteran"
+            },
+            {
+              "value": 240088066002,
+              "label": "I don't wish to answer"
+            }
+          ]
+        }
+      ],
+      "multi_select_style": null
+    }
+  ],
+  "eeoc_sections": [
+    {
+      "description": "<h3><strong>Voluntary Self-Identification</strong></h3>\n<p>For government reporting purposes, we ask candidates to respond to the below self-identification survey.\nCompletion of the form is entirely voluntary. Whatever your decision, it will not be considered in the hiring\nprocess or thereafter. Any information that you do provide will be recorded and maintained in a\nconfidential file.</p>\n\n<p>As set forth in ACLU - National Office’s Equal Employment Opportunity policy,\nwe do not discriminate on the basis of any protected group status under any applicable law.</p>\n",
+      "questions": [
+        {
+          "required": false,
+          "label": "Gender",
+          "fields": [
+            {
+              "name": "gender",
+              "type": "multi_value_single_select",
+              "values": [
+                {
+                  "label": "Male",
+                  "value": "1"
+                },
+                {
+                  "label": "Female",
+                  "value": "2"
+                },
+                {
+                  "label": "Decline To Self Identify",
+                  "value": "3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "required": false,
+          "label": "Race",
+          "fields": [
+            {
+              "name": "race",
+              "type": "multi_value_single_select",
+              "values": [
+                {
+                  "label": "American Indian or Alaskan Native",
+                  "value": "1"
+                },
+                {
+                  "label": "Asian",
+                  "value": "2"
+                },
+                {
+                  "label": "Black or African American",
+                  "value": "3"
+                },
+                {
+                  "label": "Hispanic or Latino",
+                  "value": "4"
+                },
+                {
+                  "label": "White",
+                  "value": "5"
+                },
+                {
+                  "label": "Native Hawaiian or Other Pacific Islander",
+                  "value": "6"
+                },
+                {
+                  "label": "Two or More Races",
+                  "value": "7"
+                },
+                {
+                  "label": "Decline To Self Identify",
+                  "value": "8"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "<p>\n  If you believe you belong to any of the categories of protected veterans listed below, please indicate by making the appropriate selection.\n  As a government contractor subject to the Vietnam Era Veterans Readjustment Assistance Act (VEVRAA), we request this information in order to measure\n  the effectiveness of the outreach and positive recruitment efforts we undertake pursuant to VEVRAA. Classification of protected categories\n  is as follows:\n</p>\n<p>A \"disabled veteran\" is one of the following: a veteran of the U.S. military, ground, naval or air service who is entitled to compensation (or who but for the receipt of military retired pay would be entitled to compensation) under laws administered by the Secretary of Veterans Affairs; or a person who was discharged or released from active duty because of a service-connected disability.</p>\n<p>A \"recently separated veteran\" means any veteran during the three-year period beginning on the date of such veteran's discharge or release from active duty in the U.S. military, ground, naval, or air service.</p>\n<p>An \"active duty wartime or campaign badge veteran\" means a veteran who served on active duty in the U.S. military, ground, naval or air service during a war, or in a campaign or expedition for which a campaign badge has been authorized under the laws administered by the Department of Defense.</p>\n<p>An \"Armed forces service medal veteran\" means a veteran who, while serving on active duty in the U.S. military, ground, naval or air service, participated in a United States military operation for which an Armed Forces service medal was awarded pursuant to Executive Order 12985.</p>\n",
+      "questions": [
+        {
+          "required": false,
+          "label": "Veteran Status",
+          "fields": [
+            {
+              "name": "veteran_status",
+              "type": "multi_value_single_select",
+              "values": [
+                {
+                  "label": "I am not a protected veteran",
+                  "value": "1"
+                },
+                {
+                  "label": "I identify as one or more of the classifications of a protected veteran",
+                  "value": "2"
+                },
+                {
+                  "label": "I don't wish to answer",
+                  "value": "3"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "<h3><strong>Voluntary Self-Identification of Disability</strong></h3>\n<div style=\"display:flex; justify-content:space-between;\">\n  <div>\n    <div>Form CC-305</div>\n    <div>Page 1 of 1</div>\n  </div>\n  <div>\n    <div>OMB Control Number 1250-0005</div>\n    <div>Expires 04/30/2026</div>\n  </div>\n</div>\n<br>\n<strong>Why are you being asked to complete this form?</strong>\n<p>We are a federal contractor or subcontractor. The law requires us to provide equal employment opportunity to qualified people with disabilities. We have a goal of having at least 7% of our workers as people with disabilities. The law says we must measure our progress towards this goal. To do this, we must ask applicants and employees if they have a disability or have ever had one. People can become disabled, so we need to ask this question at least every five years.</p>\n<p>Completing this form is voluntary, and we hope that you will choose to do so. Your answer is confidential. No one who makes hiring decisions will see it. Your decision to complete the form and your answer will not harm you in any way. If you want to learn more about the law or this form, visit the U.S. Department of Labor’s Office of Federal Contract Compliance Programs (OFCCP) website at <a href=\"https://www.dol.gov/ofccp\" target=\"_blank\">www.dol.gov/ofccp</a>.</p>\n<strong>How do you know if you have a disability?</strong>\n<p>A disability is a condition that substantially limits one or more of your “major life activities.” If you have or have ever had such a condition, you are a person with a disability. <strong>Disabilities include, but are not limited to:</strong></p>\n<ul>\n  <li>Alcohol or other substance use disorder (not currently using drugs illegally)</li>\n  <li>Autoimmune disorder, for example, lupus, fibromyalgia, rheumatoid arthritis, HIV/AIDS</li>\n  <li>Blind or low vision</li>\n  <li>Cancer (past or present)</li>\n  <li>Cardiovascular or heart disease</li>\n  <li>Celiac disease</li>\n  <li>Cerebral palsy</li>\n  <li>Deaf or serious difficulty hearing</li>\n  <li>Diabetes</li>\n  <li>Disfigurement, for example, disfigurement caused by burns, wounds, accidents, or congenital disorders</li>\n  <li>Epilepsy or other seizure disorder</li>\n  <li>Gastrointestinal disorders, for example, Crohn's Disease, irritable bowel syndrome</li>\n  <li>Intellectual or developmental disability</li>\n  <li>Mental health conditions, for example, depression, bipolar disorder, anxiety disorder, schizophrenia, PTSD</li>\n  <li>Missing limbs or partially missing limbs</li>\n  <li>Mobility impairment, benefiting from the use of a wheelchair, scooter, walker, leg brace(s) and/or other supports</li>\n  <li>Nervous system condition, for example, migraine headaches, Parkinson’s disease, multiple sclerosis (MS)</li>\n  <li>Neurodivergence, for example, attention-deficit/hyperactivity disorder (ADHD), autism spectrum disorder, dyslexia, dyspraxia, other learning disabilities</li>\n  <li>Partial or complete paralysis (any cause)</li>\n  <li>Pulmonary or respiratory conditions, for example, tuberculosis, asthma, emphysema</li>\n  <li>Short stature (dwarfism)</li>\n  <li>Traumatic brain injury</li>\n</ul>\n",
+      "questions": [
+        {
+          "required": false,
+          "label": "Disability Status",
+          "fields": [
+            {
+              "name": "disability_status",
+              "type": "multi_value_single_select",
+              "values": [
+                {
+                  "label": "Yes, I have a disability, or have had one in the past",
+                  "value": "1"
+                },
+                {
+                  "label": "No, I do not have a disability and have not had one in the past",
+                  "value": "2"
+                },
+                {
+                  "label": "I do not want to answer",
+                  "value": "3"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "<p>PUBLIC BURDEN STATEMENT: According to the Paperwork Reduction Act of 1995 no persons are required to respond to a collection of information unless such collection displays a valid OMB control number. This survey should take about 5 minutes to complete.</p>\n",
+      "questions": []
+    }
+  ],
+  "fetchedAt": "2026-05-13T12:11:15.917Z"
+}
