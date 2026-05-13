@@ -7,6 +7,7 @@
   var LOCALE = null;
   var FALLBACK = {
     "application.field_is_required": "This field is required.",
+    "application.is_required": "{{ fieldName }} is required.",
     "application.missing_country": "Select a country",
     "application.invalid_email": "Please enter a valid email address (example@domain.com).",
     "application.errors.invalid_filetype": "Invalid file format selected.",
@@ -98,7 +99,13 @@
     var hasFile = !!(files && files.length > 0);
 
     if (!hasFile && !hasText) {
-      if (required) return { ok: false, message: t("application.field_is_required") };
+      if (required) {
+        var blk = el.closest(".file-upload");
+        var lab = blk ? uploadLabelPlainText(blk) : "";
+        var raw = t("application.is_required");
+        var msg = interpolateTemplate(raw, { fieldName: lab || el.name || el.id });
+        return { ok: false, message: msg && msg.trim() ? msg : t("application.field_is_required") };
+      }
       return { ok: true, message: "" };
     }
     if (hasText && !hasFile) return { ok: true, message: "" };
@@ -324,6 +331,11 @@
     var selectRoot = anchorEl && anchorEl.closest && anchorEl.closest(".select");
     if (selectRoot) {
       selectRoot.appendChild(p);
+      return p;
+    }
+    var fileUp = anchorEl && anchorEl.closest && anchorEl.closest(".file-upload");
+    if (fileUp) {
+      fileUp.appendChild(p);
       return p;
     }
     var wrap = anchorEl && anchorEl.closest && anchorEl.closest(".text-input-wrapper");
