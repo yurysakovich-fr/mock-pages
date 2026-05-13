@@ -103,6 +103,7 @@
     "dropbox": "Dropbox",
     "google": "Google Drive",
     "manually": "Enter manually",
+    "remove_file": "Remove",
     "filetypes": "Accepted file types: {{ file_types }}",
     "invalid_file_size": "{{ file_size }} MB maximum file size.",
     "aria": {

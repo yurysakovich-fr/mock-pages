@@ -1,6 +1,6 @@
-# jobs-board (Greenhouse mock)
+# mock-pages
 
-Статический мок формы заявки ACLU (снимок HTML + `aclu-hydrate-selects.js`).
+Статический мок формы заявки ACLU (снимок HTML + `aclu-hydrate-selects.js`). Репозиторий: [yurysakovich-fr/mock-pages](https://github.com/yurysakovich-fr/mock-pages).
 
 ## Локально
 
@@ -17,10 +17,10 @@ npm run dev
 2. **Settings → Pages → Build and deployment → Source:** выберите **GitHub Actions** (не «Deploy from a branch»).
 3. После первого успешного запуска workflow сайт будет по адресу:
 
-   `https://<user>.github.io/<repo>/`
+   `https://yurysakovich-fr.github.io/mock-pages/`
 
-   Стартовая страница: `/` → `greenhouse/index.html` (список ссылок). Вакансия:  
-   `/<repo>/8520829002/job-boards.greenhouse.io/aclu/jobs/8520829002.html`
+   Стартовая страница: `https://yurysakovich-fr.github.io/mock-pages/` → `greenhouse/index.html`. Вакансия:  
+   `https://yurysakovich-fr.github.io/mock-pages/8520829002/job-boards.greenhouse.io/aclu/jobs/8520829002.html`
 
 ## Скрипты
 

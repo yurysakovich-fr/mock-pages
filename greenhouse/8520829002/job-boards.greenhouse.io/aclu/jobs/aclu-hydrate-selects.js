@@ -9,6 +9,13 @@
     "application.field_is_required": "This field is required.",
     "application.missing_country": "Select a country",
     "application.invalid_email": "Please enter a valid email address (example@domain.com).",
+    "application.errors.invalid_filetype": "Invalid file format selected.",
+    "file_upload.invalid_file_size": "{{ file_size }} MB maximum file size.",
+    "file_upload.attach": "Attach",
+    "file_upload.manually": "Enter manually",
+    "file_upload.remove_file": "Remove",
+    "file_upload.aria.attach": "Attach {{ label }}.",
+    "file_upload.aria.manual": "Enter {{ label }} manually.",
     "select.placeholder": "Select...",
     "select.toggle_flyout": "Toggle flyout",
   };
@@ -23,6 +30,286 @@
       o = o[parts[i]];
     }
     return typeof o === "string" ? o : fb != null ? fb : "";
+  }
+
+  /** Подстановка {{ key }} как в L() на job-board (job_post locale). */
+  function interpolateTemplate(str, vars) {
+    if (!str || !vars) return str || "";
+    return String(str).replace(/\{\{\s*([\w.]+)\s*\}\}/g, function (_, k) {
+      return vars[k] != null ? String(vars[k]) : "";
+    });
+  }
+
+  /** Как Zr в Field (input_file): лимит 100 MB, см. te(De), De=100. */
+  var GH_FILE_MAX_MB = 100;
+  var GH_FILE_MAX_BYTES = GH_FILE_MAX_MB * 1024 * 1024;
+  var GH_FILE_ALLOWED_EXT = ["pdf", "doc", "docx", "txt", "rtf"];
+
+  function isAcluGreenhouseFileField(el) {
+    if (!el || el.tagName !== "INPUT") return false;
+    var typ = (el.getAttribute("type") || "").toLowerCase();
+    if (typ !== "file") return false;
+    var eid = el.id || "";
+    return eid === "resume" || eid === "cover_letter";
+  }
+
+  function fileUploadFieldRequired(el) {
+    var g = el && el.closest && el.closest(".file-upload");
+    return !!(g && g.getAttribute("aria-required") === "true");
+  }
+
+  function extensionFromFileName(name) {
+    var n = String(name || "");
+    var dot = n.lastIndexOf(".");
+    if (dot < 0) return "";
+    return n.slice(dot + 1).toLowerCase().trim();
+  }
+
+  /**
+   * Размер и расширение как Zr (client) на job-board.
+   * @returns {{ ok: boolean, message: string }}
+   */
+  function validateSelectedFileList(files) {
+    if (!files || !files.length) return { ok: true, message: "" };
+    var f = files[0];
+    if (f.size > GH_FILE_MAX_BYTES) {
+      return {
+        ok: false,
+        message: interpolateTemplate(t("file_upload.invalid_file_size"), { file_size: String(GH_FILE_MAX_MB) }),
+      };
+    }
+    var ext = extensionFromFileName(f.name);
+    if (!ext || GH_FILE_ALLOWED_EXT.indexOf(ext) === -1) {
+      return { ok: false, message: t("application.errors.invalid_filetype") };
+    }
+    return { ok: true, message: "" };
+  }
+
+  /**
+   * Как Ia для resume/cover_letter: файл ИЛИ *_text; размер/тип как Zr при выборе файла.
+   * @returns {{ ok: boolean, message: string }}
+   */
+  function validateAcluGreenhouseFileField(form, el) {
+    if (!form || !el) return { ok: true, message: "" };
+    var required = fileUploadFieldRequired(el);
+    var textEl = form.querySelector("#" + el.id + "_text");
+    var hasText = !!(textEl && String(textEl.value || "").trim());
+    var files = el.files;
+    var hasFile = !!(files && files.length > 0);
+
+    if (!hasFile && !hasText) {
+      if (required) return { ok: false, message: t("application.field_is_required") };
+      return { ok: true, message: "" };
+    }
+    if (hasText && !hasFile) return { ok: true, message: "" };
+    return validateSelectedFileList(files);
+  }
+
+  function uploadLabelPlainText(block) {
+    var lab = block.querySelector(".upload-label");
+    if (!lab) return "";
+    var c = lab.cloneNode(true);
+    var req = c.querySelector(".required");
+    if (req) req.remove();
+    return String(c.textContent || "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function ensureFileUploadFilenameRow(block, fileInput) {
+    var row = block.querySelector("[data-aclu-rs-filename-row]");
+    if (row) return row;
+    row = document.createElement("div");
+    row.className = "file-upload__filename";
+    row.setAttribute("data-aclu-rs-filename-row", "1");
+    row.setAttribute("role", "status");
+    row.hidden = true;
+
+    var ns = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("width", "13");
+    svg.setAttribute("height", "16");
+    svg.setAttribute("viewBox", "0 0 16 16");
+    svg.setAttribute("fill", "currentColor");
+    svg.setAttribute("aria-hidden", "true");
+    var path = document.createElementNS(ns, "path");
+    path.setAttribute(
+      "d",
+      "M9 1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6l-5-5zm0 1.4L12.6 6H10a1 1 0 0 1-1-1V2.4zM4 2h5v3a2 2 0 0 0 2 2h3v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"
+    );
+    svg.appendChild(path);
+
+    var nameP = document.createElement("p");
+    nameP.className = "body";
+    nameP.setAttribute("data-aclu-file-name", "1");
+
+    var rm = document.createElement("button");
+    rm.type = "button";
+    rm.className = "btn btn--pill";
+    rm.setAttribute("data-aclu-file-remove", "1");
+    rm.textContent = t("file_upload.remove_file");
+
+    row.appendChild(svg);
+    row.appendChild(nameP);
+    row.appendChild(rm);
+
+    rm.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      fileInput.value = "";
+      row.hidden = true;
+      nameP.textContent = "";
+      fileInput.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+
+    var wrap = block.querySelector(".file-upload__wrapper");
+    var btnCont = wrap && wrap.querySelector(".button-container");
+    if (btnCont && btnCont.parentNode) btnCont.insertAdjacentElement("afterend", row);
+    else if (wrap) wrap.appendChild(row);
+
+    return row;
+  }
+
+  function updateFileUploadFilenameRow(block, fileInput, fileNameOrNull) {
+    var row = ensureFileUploadFilenameRow(block, fileInput);
+    var nameP = row.querySelector("[data-aclu-file-name]");
+    if (!fileNameOrNull) {
+      row.hidden = true;
+      if (nameP) nameP.textContent = "";
+      return;
+    }
+    row.hidden = false;
+    if (nameP) nameP.textContent = fileNameOrNull;
+  }
+
+  function ensureManualEntryArea(block, fileInput) {
+    var textId = fileInput.id + "_text";
+    var wrap = block.querySelector(".text-input-wrapper[data-aclu-manual-wrap]");
+    if (wrap) return wrap;
+
+    wrap = document.createElement("div");
+    wrap.className = "text-input-wrapper";
+    wrap.setAttribute("data-aclu-manual-wrap", "1");
+    wrap.hidden = true;
+
+    var iw = document.createElement("div");
+    iw.className = "input-wrapper";
+
+    var label = document.createElement("label");
+    label.className = "label label";
+    label.id = textId + "-label";
+    label.htmlFor = textId;
+    label.textContent = uploadLabelPlainText(block);
+
+    var ta = document.createElement("textarea");
+    ta.id = textId;
+    ta.name = textId;
+    ta.className = "input input__multi-line";
+    ta.setAttribute("rows", "8");
+    ta.setAttribute("aria-labelledby", label.id);
+    ta.setAttribute("aria-describedby", textId + "-error");
+    ta.setAttribute("aria-invalid", "false");
+
+    iw.appendChild(label);
+    iw.appendChild(ta);
+    wrap.appendChild(iw);
+
+    var ft = block.querySelector(".file-upload__filetypes");
+    if (ft && ft.parentNode) ft.insertAdjacentElement("afterend", wrap);
+    else if (block.querySelector(".file-upload__wrapper")) block.querySelector(".file-upload__wrapper").appendChild(wrap);
+
+    return wrap;
+  }
+
+  /**
+   * Кнопка Attach → click на скрытом input[type=file]; имя файла в .file-upload__filename; Remove; Enter manually → textarea.
+   */
+  function bindAcluFileUploadUi(form) {
+    if (!form || form.dataset.acluFileUploadUi) return;
+    form.dataset.acluFileUploadUi = "1";
+
+    form.querySelectorAll(".file-upload").forEach(function (block) {
+      if (block.dataset.acluFileUploadBound) return;
+      var input = block.querySelector('input[type="file"][id]');
+      if (!input || !isAcluGreenhouseFileField(input)) return;
+      block.dataset.acluFileUploadBound = "1";
+
+      if (!input.getAttribute("name")) input.setAttribute("name", input.id);
+
+      var secButtons = block.querySelectorAll(".button-container > .secondary-button");
+      var attachBtn = secButtons[0] && secButtons[0].querySelector("button.btn--pill");
+      var manualBtn = secButtons[1] && secButtons[1].querySelector("button.btn--pill");
+      var uplPlain = uploadLabelPlainText(block);
+
+      var ft = block.querySelector(".file-upload__filetypes");
+      if (ft && ft.id === "accepted-filetypes") ft.id = input.id + "-accepted-filetypes";
+
+      if (attachBtn) {
+        attachBtn.textContent = t("file_upload.attach");
+        attachBtn.setAttribute(
+          "aria-label",
+          interpolateTemplate(t("file_upload.aria.attach"), { label: uplPlain || input.id })
+        );
+        attachBtn.addEventListener("click", function (ev) {
+          ev.preventDefault();
+          input.click();
+        });
+      }
+
+      if (manualBtn) {
+        manualBtn.textContent = t("file_upload.manually");
+        manualBtn.setAttribute("aria-expanded", "false");
+        manualBtn.setAttribute(
+          "aria-label",
+          interpolateTemplate(t("file_upload.aria.manual"), { label: uplPlain || input.id })
+        );
+        manualBtn.addEventListener("click", function (ev) {
+          ev.preventDefault();
+          var area = ensureManualEntryArea(block, input);
+          var isOpen = !area.hidden;
+          if (isOpen) {
+            area.hidden = true;
+            var taClose = area.querySelector("textarea");
+            if (taClose) taClose.value = "";
+            manualBtn.setAttribute("aria-expanded", "false");
+          } else {
+            input.value = "";
+            updateFileUploadFilenameRow(block, input, null);
+            setFieldHelperError(input.id, "", false, input);
+            input.setAttribute("aria-invalid", "false");
+            area.hidden = false;
+            manualBtn.setAttribute("aria-expanded", "true");
+            var taOpen = area.querySelector("textarea");
+            if (taOpen) taOpen.focus();
+          }
+        });
+      }
+
+      input.addEventListener("change", function () {
+        var list = input.files;
+        if (list && list.length) {
+          var vr = validateSelectedFileList(list);
+          if (!vr.ok) {
+            setFieldHelperError(input.id, vr.message, true, input);
+            input.setAttribute("aria-invalid", "true");
+            input.value = "";
+            updateFileUploadFilenameRow(block, input, null);
+            return;
+          }
+          setFieldHelperError(input.id, "", false, input);
+          input.setAttribute("aria-invalid", "false");
+          var areaM = block.querySelector(".text-input-wrapper[data-aclu-manual-wrap]");
+          if (areaM) {
+            areaM.hidden = true;
+            var taM = areaM.querySelector("textarea");
+            if (taM) taM.value = "";
+          }
+          if (manualBtn) manualBtn.setAttribute("aria-expanded", "false");
+          updateFileUploadFilenameRow(block, input, list[0].name);
+          return;
+        }
+        updateFileUploadFilenameRow(block, input, null);
+      });
+    });
   }
 
   function ensureFieldErrorEl(fieldId, anchorEl) {
@@ -221,7 +508,7 @@
       var nodes = form.querySelectorAll("input, select, textarea");
       for (var j = 0; j < nodes.length; j++) {
         var el = nodes[j];
-        if (!el.willValidate || el.disabled) continue;
+        if (el.disabled) continue;
         if (el.closest(".select-shell[data-aclu-rs-hydrated]")) continue;
         var typ = (el.getAttribute("type") || "").toLowerCase();
         if (typ === "hidden" || typ === "button" || typ === "reset" || typ === "submit") continue;
@@ -239,6 +526,14 @@
             invalid = true;
             msg = t("application.invalid_email");
           }
+        } else if (isAcluGreenhouseFileField(el)) {
+          var fv = validateAcluGreenhouseFileField(form, el);
+          if (!fv.ok) {
+            invalid = true;
+            msg = fv.message;
+          }
+        } else if (!el.willValidate) {
+          continue;
         } else if (!el.checkValidity()) {
           invalid = true;
           msg = messageForNativeInvalid(el);
@@ -286,13 +581,33 @@
     if (!form || form.dataset.acluNativeValidation) return;
     form.dataset.acluNativeValidation = "1";
 
+    function clearPairedFileUploadIfValid(input) {
+      if (!input || input.tagName !== "TEXTAREA" || !input.id || !/_text$/.test(input.id)) return;
+      var form = input.form;
+      if (!form) return;
+      var base = input.id.replace(/_text$/, "");
+      var fileIn = form.querySelector("#" + base);
+      if (!fileIn || !isAcluGreenhouseFileField(fileIn)) return;
+      if (validateAcluGreenhouseFileField(form, fileIn).ok) {
+        var fidf = fieldIdFor(fileIn);
+        if (fidf) {
+          setFieldHelperError(fidf, "", false, fileIn);
+          fileIn.setAttribute("aria-invalid", "false");
+        }
+      }
+    }
+
     function clearIfValid(input) {
       if (!input || input.closest(".select-shell[data-aclu-rs-hydrated]")) return;
       var tag = input.tagName;
       if (tag !== "INPUT" && tag !== "TEXTAREA" && tag !== "SELECT") return;
+      clearPairedFileUploadIfValid(input);
       var ok;
       if (isGreenhouseEmailField(input)) ok = isGreenhouseEmailValueOk(input);
-      else ok = typeof input.checkValidity === "function" && input.checkValidity();
+      else if (isAcluGreenhouseFileField(input)) {
+        var fm = input.form;
+        ok = fm ? validateAcluGreenhouseFileField(fm, input).ok : true;
+      } else ok = typeof input.checkValidity === "function" && input.checkValidity();
       if (ok) {
         var fid = fieldIdFor(input);
         if (fid) {
@@ -697,6 +1012,7 @@
 
         var form = document.getElementById("application-form");
         if (form) {
+          bindAcluFileUploadUi(form);
           syncAriaRequiredToNative(form);
           bindAcluFormValidation(form);
           bindAcluNativeFieldValidation(form);
