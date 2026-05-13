@@ -432,6 +432,32 @@
   }
 
   /**
+   * Кнопка «Apply» в шапке вакансии (не submit формы): скролл к заявке, фокус на первое поле, hash — как на job-board Greenhouse.
+   */
+  function bindAcluApplyHeroButtons(form) {
+    if (!form || document.body.dataset.acluApplyHero) return;
+    document.body.dataset.acluApplyHero = "1";
+    document.querySelectorAll('button.btn--pill[aria-label="Apply"]').forEach(function (btn) {
+      if (btn.closest("#application-form")) return;
+      btn.addEventListener("click", function (ev) {
+        if (ev.button !== 0) return;
+        ev.preventDefault();
+        scrollLikeGreenhouse(form);
+        var first =
+          form.querySelector("#first_name") || form.querySelector("input.input__single-line:not([type='hidden'])");
+        requestAnimationFrame(function () {
+          if (first && typeof first.focus === "function") first.focus({ preventScroll: true });
+        });
+        try {
+          if (history && history.replaceState) {
+            history.replaceState(null, "", window.location.pathname + window.location.search + "#application-form");
+          }
+        } catch (e) {}
+      });
+    });
+  }
+
+  /**
    * Порядок селектора как в useEffect после ошибок: aria-invalid | data-error | .helper-text--error
    */
   function firstScrollTargetInForm(form) {
@@ -660,6 +686,8 @@
     var open = false;
     var hi = -1;
     var selected = null;
+    /** Чтобы после закрытия по клику на стрелку/паддинг не сработал openMenu() на том же focus. */
+    var suppressOpenOnFocus = false;
 
     var id = field.name;
     var labelEl = shell.closest(".select__container") && shell.closest(".select__container").querySelector("label");
@@ -858,6 +886,11 @@
 
     input.addEventListener("focus", function () {
       control.classList.add("select__control--is-focused");
+      if (suppressOpenOnFocus) {
+        suppressOpenOnFocus = false;
+        return;
+      }
+      openMenu();
     });
     input.addEventListener("blur", function () {
       setTimeout(function () {
@@ -917,6 +950,7 @@
 
     dropBtn.addEventListener("mousedown", function (e) {
       e.preventDefault();
+      if (open) suppressOpenOnFocus = true;
       toggleMenu();
       input.focus();
     });
@@ -925,6 +959,7 @@
       if (e.target === dropBtn || dropBtn.contains(e.target)) return;
       if (e.target === input || inputContainer.contains(e.target)) return;
       e.preventDefault();
+      if (open) suppressOpenOnFocus = true;
       toggleMenu();
       input.focus();
     });
@@ -1028,6 +1063,14 @@
           syncAriaRequiredToNative(form);
           bindAcluFormValidation(form);
           bindAcluNativeFieldValidation(form);
+          bindAcluApplyHeroButtons(form);
+          if (window.location.hash === "#application-form") {
+            requestAnimationFrame(function () {
+              scrollLikeGreenhouse(form);
+              var fn0 = form.querySelector("#first_name");
+              if (fn0 && typeof fn0.focus === "function") fn0.focus({ preventScroll: true });
+            });
+          }
         }
 
         console.log("[aclu-hydrate-selects] react-select-style combobox готово");
