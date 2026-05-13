@@ -13,9 +13,19 @@ npm run dev
 
 ## GitHub Pages
 
-1. Создайте репозиторий на GitHub и запушьте этот проект (`main` или `master`).
-2. **Settings → Pages → Build and deployment → Source:** выберите **GitHub Actions** (не «Deploy from a branch»).
-3. После первого успешного запуска workflow сайт будет по адресу:
+1. Репозиторий уже на GitHub, ветка `main` с этим кодом.
+2. **Обязательно до деплоя:** откройте [Settings → Pages](https://github.com/yurysakovich-fr/mock-pages/settings/pages) репозитория **mock-pages**.
+3. В блоке **Build and deployment** поле **Source** переключите на **GitHub Actions** (не «Deploy from a branch»). Сохраните, если GitHub покажет подтверждение.
+4. Если при первом запуске Actions появится запрос на окружение **github-pages** — подтвердите во вкладке **Actions** (иногда «Waiting for approval»).
+5. После включения Pages заново запустите деплой: вкладка **Actions** → workflow **Deploy GitHub Pages** → **Run workflow** (у workflow включён ручной запуск), либо пустой коммит / повторный push в `main`.
+
+### Ошибка `Creating Pages deployment failed` / `HttpError: Not Found` (404)
+
+Так отвечает API GitHub, если **Pages ещё не включён** или источник не **GitHub Actions**. Выполните шаги 2–3 выше, затем снова запустите workflow. Пока в настройках стоит «None» или ветка вместо Actions, шаг `deploy-pages` будет падать с 404.
+
+У репозитория в организации дополнительно проверьте политики организации: не отключены ли **GitHub Pages** для репозиториев.
+
+После успешного деплоя сайт будет по адресу:
 
    `https://yurysakovich-fr.github.io/mock-pages/`
 
